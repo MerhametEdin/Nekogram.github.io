@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram Bot Mesaj Gönderme</title>
+</head>
+<body>
+    <button id="sendButton">Mesaj Gönder</button>
+
+    <script>
+        document.getElementById('sendButton').addEventListener('click', function() {
+            var botToken = '7484847672:AAFcbRPNQ7CGg6YnjJvtEbKqbybJaATOMjc'; // Buraya bot tokenınızı girin
+            var chatId = '2185166004'; // Buraya chat ID'nizi girin
+            var message = 'Acımam !.';
+
+            var url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            setInterval(function() {
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            console.log('Mesaj başarıyla gönderildi!');
+                        } else {
+                            console.log('Mesaj gönderilemedi: ' + data.description);
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Hata:', error);
+                    });
+            }, 10); // 10 milisaniye aralıkla mesaj gönderir
+        });
+    </script>
+</body>
+</html>
